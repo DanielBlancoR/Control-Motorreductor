@@ -27,7 +27,7 @@ char dir;
 
 extern "C"{
 	
-	/* Interrupci髇 cada 10 ms */
+	/* Interrupci贸n cada 10 ms */
 	void SysTick_Handler(void){
 				
 		if(RPM == 0){
@@ -43,15 +43,15 @@ extern "C"{
 extern "C"{
 	
 	void EXTI2_IRQHandler(void){
-		EXTI->PR |= (1UL<<2); // Limpiar bandera de interrupci髇
-		Pul_A++; // Contador de pulsos del encoder por interrupci髇
+		EXTI->PR |= (1UL<<2); // Limpiar bandera de interrupci贸n
+		Pul_A++; // Contador de pulsos del encoder por interrupci贸n
 	}
 }
 
 extern "C"{
 	void EXTI3_IRQHandler(void){
 		
-		EXTI->PR |= (1UL<<3); // Limpiar bandera de interrupci髇
+		EXTI->PR |= (1UL<<3); // Limpiar bandera de interrupci贸n
 		
 		/* Determinar sentido de giro con interrupciones del Encoder */
 		if( ((GPIOE->IDR &= 0x4)==0x4) == ((GPIOE->IDR &= 0x8)==0x8) ){
@@ -67,7 +67,7 @@ extern "C"{
 
 	void TIM7_IRQHandler(void){
 		
-		TIM7->SR &=~ TIM_SR_UIF; // Limpiar bandera de Interrupci髇
+		TIM7->SR &=~ TIM_SR_UIF; // Limpiar bandera de Interrupci贸n
 		
 		temp++;
 		
@@ -87,7 +87,7 @@ extern "C"{
 
 		void UART4_IRQHandler(void){
 
-			if(UART4->ISR & 0x20){ // Los datos recibidos est醤 listos para ser le韉os.
+			if(UART4->ISR & 0x20){ // Los datos recibidos est谩n listos para ser le铆dos.
 				Rx_UART4();
 			}
 
@@ -179,7 +179,7 @@ void TIM3_PWM_Config(void){
 	TIM3->EGR |= (1UL<<0); 
 	TIM3->PSC = 15; // 1 Mhz
 	TIM3->ARR = 20000; // 20 ms
-	TIM3->DIER |= (1UL<<0); // Habilitar Interrupci髇
+	TIM3->DIER |= (1UL<<0); // Habilitar Interrupci贸n
 	
 	TIM3->CR1 |= (1UL<<0); // Habilitar Contador
 	
@@ -215,7 +215,7 @@ void UART4_Init(void){
 	//UART4->BRR  = 0x683; // Velocidad : 9600 Baudios
 	UART4->BRR  = 0x8B; //115200
 	
-  UART4->CR1 |= 0x2D; // UART4 Habilitado, RE y TE Transmisi髇 y recepci髇 Habilitada, RXNEIE Interrupci髇 por Recepci髇 Habilitada
+  UART4->CR1 |= 0x2D; // UART4 Habilitado, RE y TE Transmisi贸n y recepci贸n Habilitada, RXNEIE Interrupci贸n por Recepci贸n Habilitada
   GPIOC->MODER   |= (2UL<<2*11); // Rx PTC11
 	GPIOC->AFR[1]  |= 0x8000;
 	GPIOC->MODER   |= (2UL<<2*10); // Tx PTC10
@@ -240,7 +240,7 @@ void Rx_UART4(void){
 			
 	rData = UART4->RDR;
 
-	if(rData == '*' | rData == 10){ // 10 = LF = Nueva L韓ea, 13 = CR = Retorno de Carro, *
+	if(rData == '*' | rData == 10){ // 10 = LF = Nueva L铆nea, 13 = CR = Retorno de Carro, *
 
 		msg[count_char] = '\0'; // Finalizar cadena de caracteres con 0
 		count_char=0;
