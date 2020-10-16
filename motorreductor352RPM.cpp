@@ -74,7 +74,7 @@ extern "C"{
 		if(temp > 999){  // 1000 ms -> 1 seg.
 		temp = 0;
 		GPIOB->ODR ^= (1UL<<7); // LED_Testigo
-		/* Capruta de pulsos cada 1 segundo */
+		/* Captura de pulsos cada 1 segundo */
 		RPM = Pul_A * 60 / 442; // 442 pulsos por vuelta en el eje
 		Pul_A = 0;
 			
@@ -107,7 +107,7 @@ int main(void){
 	
 		/* 
 		PWM -> TIM3_CH1 PB4
-		PWM con T = 20ms, numero_rx : [3 a 99] porcentaje
+		PWM con T = 20ms, numero_rx : [3 a 99] % porcentaje
 		del ancho de pulso proveniente de UART (NetBeans) */
 		pwm = 200*numero_rx; 
 		TIM3->CCR1 = pwm; // Caargar el nuevo valor del PWM
@@ -204,7 +204,7 @@ void TIM7_Config(void){
 
 void SysTick_Init(void){
 	SystemCoreClockUpdate();
-	SysTick_Config(SystemCoreClock/10);  //SysTick configurado a 10ms, 100Hz
+	SysTick_Config(SystemCoreClock/10);  //SysTick configurado a 100ms | 10 Hz
 }
 
 void UART4_Init(void){
@@ -220,7 +220,7 @@ void UART4_Init(void){
 	GPIOC->AFR[1]  |= 0x8000;
 	GPIOC->MODER   |= (2UL<<2*10); // Tx PTC10
 	GPIOC->AFR[1]  |= 0x800;
-	NVIC_EnableIRQ(UART4_IRQn); // Venctor Interrupciones para UART4
+	NVIC_EnableIRQ(UART4_IRQn); // Vector Interrupciones para UART4
 	
 }
 void Tx_UART4(char v[]){
@@ -252,7 +252,7 @@ void Rx_UART4(void){
 
 	}	else {
 		
-		msg[count_char] = rData; // Formacion de la cadena de caracteres
+		msg[count_char] = rData; //cadena de caracteres
 		count_char++;
 		}
 }
