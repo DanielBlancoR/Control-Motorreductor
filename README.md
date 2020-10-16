@@ -1,4 +1,4 @@
-# Control-Motorreductor
+# Motor DC con Encoder controlado por GUI
 Motor DC con Encoder controlado por GUI
 
 MCU: STM32F746ZG
