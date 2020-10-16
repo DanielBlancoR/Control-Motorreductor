@@ -27,7 +27,7 @@ char dir;
 
 extern "C"{
 	
-	/* Interrupción cada 10 ms */
+	/* Interrupción cada 100 ms */
 	void SysTick_Handler(void){
 				
 		if(RPM == 0){
